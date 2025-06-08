@@ -4,8 +4,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.NullString;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class HorseTest {
 
@@ -45,7 +44,30 @@ public class HorseTest {
     public void ExceptionWhenSecondParameterNegative() {
         assertThrows(IllegalArgumentException.class, () -> new Horse("abc", -2, 5));
     }
+    @Test
+    public void ExceptionMessageWhenSecondParameterNegative() {
+        try {
+            new Horse("abc", -2, 5);
+            fail("Exception not thrown");
+        } catch (IllegalArgumentException e) {
+            assertEquals("Speed cannot be negative.", e.getMessage());
+        }
+    }
+    @Test
+    public void ExceptionWhenThirdParameterNegative(){
+        assertThrows(IllegalArgumentException.class, () -> new Horse("abc", 2, -5));
+    }
+
+    @Test
+    public void ExceptionMessageWhenThirdParameterNegative() {
+        try {
+            new Horse("abc", 2, -5);
+        } catch (IllegalArgumentException e) {
+            assertEquals("Distance cannot be negative.", e.getMessage());
+        }
+    }
 
 }
 
-//Проверить, что при передаче в конструктор вторым параметром отрицательного числа, будет выброшено IllegalArgumentException
+//Проверить, что при передаче в конструктор вторым параметром отрицательного числа,
+// выброшенное исключение будет содержать сообщение "Speed cannot be negative.";
