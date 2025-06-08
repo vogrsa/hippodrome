@@ -91,14 +91,13 @@ public class HorseTest {
         assertEquals(5, horse.getDistance());
     }
 
-
+    @Test
+    public void zeroWhenObjectWasCreatedConstructorWithTwoParameters() {
+        Horse horse1 = new Horse("Fast",2);
+        assertEquals(0, horse1.getDistance());
+    }
 }
 
-
-//метод getSpeed
-//Проверить, что метод возвращает число, которое было передано вторым параметром в конструктор;
-//метод getDistance
-//Проверить, что метод возвращает число, которое было передано третьим параметром в конструктор;
 
 //Проверить, что метод возвращает ноль, если объект был создан с помощью конструктора с двумя параметрами;
 //метод move
