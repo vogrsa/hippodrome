@@ -40,7 +40,12 @@ public class HorseTest {
             assertEquals("Name cannot be blank.", e.getMessage());
         }
     }
+
+    @Test
+    public void ExceptionWhenSecondParameterNegative() {
+        assertThrows(IllegalArgumentException.class, () -> new Horse("abc", -2, 5));
+    }
+
 }
 
-//Проверить, что при передаче в конструктор первым параметром пустой строки или строки содержащей только
-// пробельные символы (пробел, табуляция и т.д.), выброшенное исключение будет содержать сообщение "Name cannot be blank.";
+//Проверить, что при передаче в конструктор вторым параметром отрицательного числа, будет выброшено IllegalArgumentException
