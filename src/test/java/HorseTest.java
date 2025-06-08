@@ -1,12 +1,9 @@
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.NullString;
-
-import java.lang.reflect.Field;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -96,10 +93,19 @@ public class HorseTest {
         Horse horse1 = new Horse("Fast",2);
         assertEquals(0, horse1.getDistance());
     }
+    @Test
+     void moveUseGetRandomDouble() {
+        try (MockedStatic<Horse> hotseMockedStatic = Mockito.mockStatic(Horse.class)) {
+            new Horse("Fast", 3, 5).move();
+            hotseMockedStatic.verify(()->Horse.getRandomDouble(0.2,0.9));
+        }
+
+    }
+
+
 }
 
 
-//Проверить, что метод возвращает ноль, если объект был создан с помощью конструктора с двумя параметрами;
 //метод move
 //Проверить, что метод вызывает внутри метод getRandomDouble с параметрами 0.2 и 0.9. Для этого нужно использовать MockedStatic и его метод verify;
 //Проверить, что метод присваивает дистанции значение высчитанное по формуле: distance + speed * getRandomDouble(0.2, 0.9). Для этого нужно замокать getRandomDouble, чтобы он возвращал определенные значения, которые нужно задать параметризовав тест.;
