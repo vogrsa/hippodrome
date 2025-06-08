@@ -1,3 +1,5 @@
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -9,6 +11,7 @@ import java.lang.reflect.Field;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class HorseTest {
+    public Horse horse;
 
     @Test
     public void nullFirstParameterConstructorException() {
@@ -69,20 +72,34 @@ public class HorseTest {
         }
     }
 
+    @BeforeEach
+        public void newObjectHorse() {
+        horse = new Horse("Fast", 2, 5);
+
+    }
     @Test
     public void getNameWhileItwasPassedFirstParameter() {
-        Horse horse = new Horse("Fast", 2, 5);
+      //  Horse horse = new Horse("Fast", 3, 5);
         assertEquals("Fast", horse.getName());
     }
+    @Test
+    public void getSpeedWhileItWasPassedSecondParameter() {
+        assertEquals(2, horse.getSpeed());
+    }
+    @Test
+    public void getDistanceWhileItWasPassedThirdParameter() {
+        assertEquals(5, horse.getDistance());
+    }
+
 
 }
 
-//метод getName
-//Проверить, что метод возвращает строку, которая была передана первым параметром в конструктор;
+
 //метод getSpeed
 //Проверить, что метод возвращает число, которое было передано вторым параметром в конструктор;
 //метод getDistance
 //Проверить, что метод возвращает число, которое было передано третьим параметром в конструктор;
+
 //Проверить, что метод возвращает ноль, если объект был создан с помощью конструктора с двумя параметрами;
 //метод move
 //Проверить, что метод вызывает внутри метод getRandomDouble с параметрами 0.2 и 0.9. Для этого нужно использовать MockedStatic и его метод verify;
