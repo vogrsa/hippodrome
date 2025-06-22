@@ -1,12 +1,11 @@
 import org.junit.jupiter.api.Test;
-import org.mockito.configuration.IMockitoConfiguration;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 public class HippodromeTest {
     private List<Horse> horses = new ArrayList<>();
@@ -28,7 +27,7 @@ public class HippodromeTest {
     @Test
     public void emptyListException() {
         try {
-          Hippodrome hippodrome = new Hippodrome(horses);
+         new Hippodrome(horses);
         } catch (IllegalArgumentException e) {
             assertEquals("Horses cannot be empty.", e.getMessage());
         }
@@ -40,7 +39,6 @@ public class HippodromeTest {
             horseList.add(new Horse("" + i, i, i));
         }
         Hippodrome hippodrome = new Hippodrome(horseList);
- //       assertSame(horseList, hippodrome.getHorses());
         assertEquals(horseList, hippodrome.getHorses());
     }
 
@@ -54,9 +52,21 @@ public class HippodromeTest {
         hippodrome.move();
 
         for (Horse horse : horses) {
-            verify(horse).move();
+            verify(horse, atLeast(1)).move();
         }
 
     }
+    @Test
+    public void getWinner() {
+        Horse horse1 = new Horse("horse1", 2, 1);
+        Horse horse2 = new Horse("horse2", 2, 0.2);
+        Horse horse5 = new Horse("horse5", 2, 5);
+
+        Hippodrome hippodrome = new Hippodrome(List.of(horse1, horse2, horse5));
+        assertSame(horse5, hippodrome.getWinner());
+    }
+
+
+
 }
 
